@@ -20,17 +20,17 @@ resource "azurerm_virtual_machine" "main" {
   additional_capabilities {
     ultra_ssd_enabled = var.additional_capabilities_ultra_ssd_enabled
   }
-  delete_os_disk_on_termination   = var.delete_os_disk_on_termination
+  delete_os_disk_on_termination    = var.delete_os_disk_on_termination
   delete_data_disks_on_termination = var.delete_data_disks_on_termination
   identity {
     type         = var.identity_type
     identity_ids = var.identity_identity_ids
   }
   os_profile {
-    computer_name   = var.os_profile_computer_name
-    admin_username  = var.os_profile_admin_username
-    admin_password  = var.os_profile_admin_password
-    custom_data     = var.os_profile_custom_data
+    computer_name  = var.os_profile_computer_name
+    admin_username = var.os_profile_admin_username
+    admin_password = var.os_profile_admin_password
+    custom_data    = var.os_profile_custom_data
   }
   os_profile_secrets {
     source_vault_id = var.os_profile_secrets_source_vault_id
@@ -47,11 +47,11 @@ resource "azurerm_virtual_machine" "main" {
   primary_network_interface_id = var.primary_network_interface_id
   proximity_placement_group_id = var.proximity_placement_group_id
   storage_data_disk {
-    name                     = var.storage_data_disk_name
-    caching                  = var.storage_data_disk_caching
-    create_option            = var.storage_data_disk_create_option
-    disk_size_gb             = var.storage_data_disk_disk_size_gb
-    lun                      = var.storage_data_disk_lun
+    name                      = var.storage_data_disk_name
+    caching                   = var.storage_data_disk_caching
+    create_option             = var.storage_data_disk_create_option
+    disk_size_gb              = var.storage_data_disk_disk_size_gb
+    lun                       = var.storage_data_disk_lun
     write_accelerator_enabled = var.storage_data_disk_write_accelerator_enabled
   }
   storage_image_reference {
@@ -61,12 +61,12 @@ resource "azurerm_virtual_machine" "main" {
     version   = var.storage_image_reference_version
   }
   storage_os_disk {
-    name                     = var.storage_os_disk_name
-    caching                  = var.storage_os_disk_caching
-    create_option            = var.storage_os_disk_create_option
-    disk_size_gb             = var.storage_os_disk_disk_size_gb
-    image_uri                = var.storage_os_disk_image_uri
-    os_type                  = var.storage_os_disk_os_type
+    name                      = var.storage_os_disk_name
+    caching                   = var.storage_os_disk_caching
+    create_option             = var.storage_os_disk_create_option
+    disk_size_gb              = var.storage_os_disk_disk_size_gb
+    image_uri                 = var.storage_os_disk_image_uri
+    os_type                   = var.storage_os_disk_os_type
     write_accelerator_enabled = var.storage_os_disk_write_accelerator_enabled
   }
   tags  = var.tags
