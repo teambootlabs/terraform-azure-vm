@@ -10,10 +10,6 @@ variable "location" {
   description = "Specifies the Azure Region where the Virtual Machine exists."
   type        = string
 }
-variable "network_interface_ids" {
-  description = "A list of Network Interface ID's which should be associated with the Virtual Machine."
-  type        = list(string)
-}
 variable "os_profile_linux_config_disable_password_authentication" {
   description = " Specifies whether password authentication should be disabled."
   type        = bool

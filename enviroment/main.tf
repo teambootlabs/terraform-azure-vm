@@ -1,9 +1,41 @@
+data "azurerm_resource_group" "terraboot" {
+  name = "terrabootlabs"
+}
+
+resource "azurerm_management_lock" "rglock" {
+  name       = "resource-group-level"
+  scope      = data.azurerm_resource_group.terraboot.id
+  lock_level = "ReadOnly"
+  notes      = "This Resource Group is Read-Only"
+}
+data "azurerm_virtual_network" "terraboot" {
+  name                = "terrabootlabs"
+  resource_group_name = "terrabootlabs"
+}
+data "azurerm_subnet" "terraboot" {
+  name                 = "terrabootlabs"
+  virtual_network_name = "terrabootlabs"
+  resource_group_name  = "terrabootlabs"
+}
+
+resource "azurerm_network_interface" "example" {
+  name                = "example-nic"
+  location            = data.azurerm_resource_group.terraboot.location
+  resource_group_name = data.azurerm_resource_group.terraboot.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = data.azurerm_subnet.terraboot.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
 
 resource "azurerm_virtual_machine" "main" {
   name                  = var.name
   resource_group_name   = var.resource_group_name
   location              = var.location
-  network_interface_ids = var.network_interface_ids
+  network_interface_ids = azurerm_network_interface.example.id
   os_profile_linux_config {
     disable_password_authentication = var.os_profile_linux_config_disable_password_authentication
     ssh_keys {
